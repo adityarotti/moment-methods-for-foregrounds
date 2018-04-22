@@ -4,7 +4,7 @@ We use the moment method to describe the SED
 
 # Data compression
 
-Sum of SED of modified blackbodies derived from sum of modified black body SED's with three different distribution of parameters:
+Sum of SED of modified blackbodies derived from sum of modified black body SED's with three different distribution of parameters T and the slope. For the slope "alpha" we draw from a Gaussian with a mean at 1. For temperature we draw from a two Gaussians centered at 9.75 K and 15.7 K. For "NARROW" and "WIDE" SED models we basically draw from distributions with larger widths. The "DELTA" SED model corresponds to a modified black body with slope=1 and T=15.7 K. The specific parameter distributions and the resultant SED's are depicted in the figures below:
 
 <img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/data_compression/model_sed.jpeg" alt="Alpha distribution" width="33%" ></img>
 <img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/data_compression/T_distribution.jpeg" alt="T distribution" width="33%"></img>
