@@ -22,3 +22,20 @@ The figures below show the relative errors
 <img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/data_compression/relative_error_with_taylor_order_delta_sed.jpeg" alt="Alpha distribution" width="33%"></img>
 <img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/data_compression/relative_error_with_taylor_order_narrow_sed.jpeg" alt="Alpha distribution" width="33%"></img>
 <img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/data_compression/relative_error_with_taylor_order_wide_sed.jpeg" alt="Alpha distribution" width="33%"></img>
+
+
+# Moment analyis on SED's provided by Colin Hill and Marcelo Alvarez
+
+<img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/colin_marcelo_sed/intensity_spectrum_data.jpeg" alt="Alpha distribution" width="33%"></img>
+
+Results from analysis on Colin's SED performed by interpolating on the SED:
+
+<img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/colin_marcelo_sed/improvement_in_fits_colin_sed.jpeg" alt="Alpha distribution" width="33%"></img>
+<img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/colin_marcelo_sed/relative_error_with_taylor_order_colin_sed.jpeg" alt="Alpha distribution" width="33%"></img>
+<img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/colin_marcelo_sed/inu_fit_with_taylor_order_colin_sed.jpeg" alt="Alpha distribution" width="33%"></img>
+
+Results from analysis on Marcelo's SED performed by interpolating on the SED:
+
+<img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/colin_marcelo_sed/improvement_in_fits_marcelo_sed.jpeg" alt="Alpha distribution" width="33%"></img>
+<img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/colin_marcelo_sed/relative_error_with_taylor_order_marcelo_sed.jpeg" alt="Alpha distribution" width="33%"></img>
+<img src="https://github.com/adityarotti/moment-methods-for-foregrounds/blob/master/figures/colin_marcelo_sed/inu_fit_with_taylor_order_marcelo_sed.jpeg" alt="Alpha distribution" width="33%"></img>
