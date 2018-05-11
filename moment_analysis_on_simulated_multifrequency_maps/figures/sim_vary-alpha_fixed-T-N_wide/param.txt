@@ -1,0 +1,14 @@
+Nside       8.00
+nu_min     10.00
+nu_max     3000.00
+Channels   50.00
+T1          9.75
+dT1         0.00
+alpha1      1.63
+dalpha1     0.25
+T2          9.75
+dT2         0.00
+alpha2      2.82
+dalpha2     0.25
+N           5.00
+dN          0.00
