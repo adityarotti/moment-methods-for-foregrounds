@@ -5,10 +5,10 @@ Channels   50.00
 T1          9.75
 dT1         4.00
 alpha1      1.63
-dalpha1     0.30
+dalpha1     0.10
 T2         15.70
 dT2         4.00
 alpha2      2.82
-dalpha2     0.30
+dalpha2     0.10
 N           3.00
 dN          1.00

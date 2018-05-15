@@ -27,4 +27,4 @@ class analytic_sed(object):
                 self.num_of_vectors=self.num_of_vectors+1
 
     def calc_num_vec(self,n):
-        return int((n+1.)*(n+2.)/2.)
+        return int(((n+1.)*(n+2.)/2.))

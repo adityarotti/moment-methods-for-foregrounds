@@ -11,6 +11,7 @@ class gram_schmidt_fitting(object):
         self.ana_sed=analytic_sed.analytic_sed()
         self.ana_sed.create_fn_dir(self.n)
         self.ana_sed.fn_dir
+        self.num_basis=0
 
     def gen_vectors(self,nu,T,slope):
         self.vectors=list()
@@ -31,7 +32,8 @@ class gram_schmidt_fitting(object):
             norm=np.sqrt(np.dot(w,w)) #; print norm
         
             #Normalize vector.
-            if (norm > 1e-12):  
+            # If one has sampled at only N frequencies, one cannot have more than N basis
+            if (norm > 1e-8):  
                 basis.append(w/norm)         
 
         return np.array(un_basis),np.array(basis)
@@ -56,6 +58,26 @@ class gram_schmidt_fitting(object):
                     vectors=self.basis
                     normalize=True
                     counter=counter+1   
+        self.num_basis=np.shape(self.basis)[0]
 
-    def get_gram_schmidt_param(self,Inu):
-        for i in range()
+    def get_gram_schmidt_param(self,Inu,n,n_is_der_order=True):
+        par=[]
+        if n_is_der_order:
+            num_par=self.ana_sed.calc_num_vec(n)
+        else:
+            num_par=n
+
+        if self.num_basis<num_par:
+            num_par=self.num_basis
+            print "Have only", num_par, "basis function, so will fit only as many parameters."
+
+        for i in range(num_par):
+        #for i in range(der_order): # These are not derivative order, but number of basis
+            par.append(np.dot(self.basis[i],Inu))
+        return par
+
+    def reconstruct_sed(self,*coeffs):
+        sed=0.
+        for i,par in enumerate(coeffs):
+            sed=sed+par*self.basis[i]
+        return sed
