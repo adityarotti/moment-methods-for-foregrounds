@@ -14,11 +14,13 @@ class gram_schmidt_fitting(object):
         self.num_basis=0
 
     def gen_vectors(self,nu,T,slope):
+        self.T=T
+        self.slope=slope
         self.vectors=list()
-        nu0=cnst.boltzman_const*T/cnst.planck_const/cnst.ghz2hz 
+        nu0=cnst.boltzman_const*self.T/cnst.planck_const/cnst.ghz2hz 
         c0=cnst.planck_const*cnst.ghz2hz/cnst.boltzman_const
         for i in range(len(self.ana_sed.fn_dir)):
-            v=self.ana_sed.fn_dir[i](nu,1./T,slope,nu0,c0)
+            v=self.ana_sed.fn_dir[i](nu,1./self.T,self.slope,nu0,c0)
             self.vectors.append(v/max(abs(v)))
         
     def gram_schmidt(self,vectors):
@@ -81,3 +83,4 @@ class gram_schmidt_fitting(object):
         for i,par in enumerate(coeffs):
             sed=sed+par*self.basis[i]
         return sed
+        # It has to be the gram-schmidt basis function here and not the raw vectors.
