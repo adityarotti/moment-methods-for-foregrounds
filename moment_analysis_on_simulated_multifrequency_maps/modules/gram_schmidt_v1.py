@@ -33,7 +33,7 @@ class gram_schmidt_fitting(object):
         self.vectors=list()
         for i in range(len(self.ana_sed.fn_dir)):
             v=self.ana_sed.fn_dir[i](self.nu,1./self.T,self.slope,nu0,c0)
-            self.vectors.append(v/max(abs(v)))
+            self.vectors.append(v)
         
     def gram_schmidt(self,vectors):
         basis = []
@@ -87,10 +87,10 @@ class gram_schmidt_fitting(object):
 
         self.cov=np.zeros((num_par,num_par),np.float64)
         for i in range(num_par):
-            calc_sparse_basis_i=interp1d(self.nu,self.basis[i],kind="linear")
+            calc_sparse_basis_i=interp1d(self.nu,self.basis[i],kind="cubic")
             sparse_basis_i=calc_sparse_basis_i(nu)
             for j in range(num_par):
-                calc_sparse_basis_j=interp1d(self.nu,self.basis[j],kind="linear")
+                calc_sparse_basis_j=interp1d(self.nu,self.basis[j],kind="cubic")
                 sparse_basis_j=calc_sparse_basis_j(nu)
                 self.cov[i,j]=np.dot(sparse_basis_i,sparse_basis_j)
             par.append(np.dot(sparse_basis_i,Inu))
@@ -102,7 +102,7 @@ class gram_schmidt_fitting(object):
     def reconstruct_sed(self,nu,*coeffs):
         sed=0.
         for i,par in enumerate(coeffs):
-            calc_sparse_basis=interp1d(self.nu,self.basis[i],kind="linear")
+            calc_sparse_basis=interp1d(self.nu,self.basis[i],kind="cubic")
             sparse_basis=calc_sparse_basis(nu)
             sed=sed+par*sparse_basis
         return sed

@@ -9,11 +9,12 @@ class analytic_sed(object):
 
     def mbb_der(self,der_beta=0,der_s=0):
         expr=self.mbb.diff(self.beta,der_beta)*self.mbb.diff(self.s,der_s)*(self.beta**der_beta)/self.mbb/(sp.factorial(der_beta)*sp.factorial(der_s))
+        #expr=self.mbb.diff(self.beta,der_beta).diff*(self.s,der_s)*(self.beta**der_beta)/(sp.factorial(der_beta)*sp.factorial(der_s))
         return expr
 
     
     def create_fn_dir(self,n):
-        '''This function creates a directory of functions \n The function in the directors are the various derivatives of the base SED \n 0 : MBB \n 1 : d(MBB)/ds \n 2 : beta*d(MBB)/dbeta \n 3 : d^2(MBB)/ds^2 \n 4 : beta*d^2(MBB)/ds dbeta \n 5 : (beta^2) d^2(MBB)/dbeta^2 \n ... \n ... '''
+        '''This function creates a directory of functions\n The function in the directories are the various derivatives of the base SED \n 0 : MBB \n 1 : d(MBB)/ds \n 2 : beta*d(MBB)/dbeta \n 3 : d^2(MBB)/ds^2 \n 4 : beta*d^2(MBB)/ds dbeta \n 5 : (beta^2) d^2(MBB)/dbeta^2 \n ... \n ... '''
 
         self.fn_dir={}
 
