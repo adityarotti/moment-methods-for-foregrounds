@@ -45,7 +45,7 @@ class gram_schmidt_fitting(object):
 
         normalize=True ; counter=0
         while normalize:
-            print counter
+            #print counter
             un_basis,self.basis=self.gram_schmidt(vectors) ; normalize=False
         
             if iter>counter:
