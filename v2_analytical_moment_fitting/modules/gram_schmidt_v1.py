@@ -1,17 +1,17 @@
+import sys
 import numpy as np
+from scipy.interpolate import interp1d
 import constants as cnst
 import analytic_sed as analytic_sed
-from scipy.optimize import curve_fit
-from scipy.interpolate import interp1d
-import sys
+
 
 
 #Notes: 
 # In this module, we construct Gram-Schmidt functions at some very high sampling between nu_min and nu_max.
-# We interpolate these function frequencies at which SED measurements are available.
+# We interpolate these function at frequencies at which SED measurements are available.
 # We find the coeffiecients of expansion in the Gram-Schmidt basis by dotting these sparse basis vectors to the SED.
 # Note that these sparse function are no longer orthonormal and hence we need to invert the covariance of this sparse basis
-# arrive at the effective coefficient of expansion in the fine basis.
+# to arrive at the coefficient of expansion in the original orthonormal basis.
 
 class gram_schmidt_fitting(object):
     
@@ -23,11 +23,8 @@ class gram_schmidt_fitting(object):
         self.num_basis=0
 
     def gen_vectors(self,T,slope,nu_min,nu_max,sampling=1e5,nu=[],logspace=True):
-        self.T=T
-        self.slope=slope
-
-        nu0=cnst.boltzman_const*self.T/cnst.planck_const/cnst.ghz2hz 
-        c0=cnst.planck_const*cnst.ghz2hz/cnst.boltzman_const
+        nu0=cnst.boltzman_const*self.T/cnst.planck_const/cnst.ghz2hz # Pivot frequency in GHz
+        c0=cnst.planck_const*cnst.ghz2hz/cnst.boltzman_const # This defines h*nu/k in the exponential
 
         if np.size(nu)==0:
             if logspace:
@@ -42,26 +39,26 @@ class gram_schmidt_fitting(object):
 
         self.vectors=list()
         for i in range(len(self.ana_sed.fn_dir)):
-            v=self.ana_sed.fn_dir[i](self.nu,1./self.T,self.slope,nu0,c0)
+            v=self.ana_sed.fn_dir[i](self.nu,1./T,slope,nu0,c0)
             self.vectors.append(v)
         
     def gram_schmidt(self,vectors,min_vec_norm=1e-8):
-        basis = []
-        un_basis = []
+        basis = [] # Directory of normalized basis functions
+        un_basis = [] # Directory of un-normalized basis functions
         fewer_basis_than_vectors=False
-
+        
         for ivec,v in enumerate(vectors):
             w = v - np.sum( np.dot(v,b)*b  for b in basis )
         
             #Calculate the norm for w-vector.
-            norm=np.sqrt(np.dot(w,w))
+            norm=np.dot(w,w)
             if ivec==0:
                 norm0=norm
             #print norm/norm0
 
             #Normalize vector.
             # If one has sampled at only N frequencies, one cannot have more than N basis
-            if (norm/norm0 > min_vec_norm):  
+            if (np.sqrt(norm/norm0) > min_vec_norm):
                 un_basis.append(w)
                 basis.append(w/norm)         
             else:
@@ -74,7 +71,7 @@ class gram_schmidt_fitting(object):
 
         return np.array(un_basis),np.array(basis)
 
-    def gram_schmidt_iterative(self,tol=1e-8,iter=10,min_vec_norm=1e-6):
+    def gram_schmidt_iterative(self,tol=1e-8,max_iter=10,min_vec_norm=1e-6):
         vectors=self.vectors
 
         normalize=True ; counter=0
@@ -96,11 +93,16 @@ class gram_schmidt_fitting(object):
                     counter=counter+1   
         self.num_basis=np.shape(self.basis)[0]
 
-    def get_gram_schmidt_param(self,nu,Inu,n,n_is_der_order=True):
-    #def get_gram_schmidt_param(self,nu,Inu,n,n_is_der_order=True,rcond=1e-6):
-        par=[]
-        if n_is_der_order:
-            num_par=self.ana_sed.calc_num_vec(n)
+    def get_basis_coeffs(self,nu,Inu,n,n_is_der_order=True):
+        
+        if n_is_der_order
+            if n>self.n:
+                n=self.n
+                num_par=self.ana_sed.calc_num_vec(n)
+                print "The derivatives are only set up to order ", self.n
+                print "Resetting n =", self.n
+            else:
+                num_par=self.ana_sed.calc_num_vec(n)
         else:
             num_par=n
 
@@ -108,6 +110,7 @@ class gram_schmidt_fitting(object):
             num_par=self.num_basis
             print "Have only", num_par, "basis function, so will fit only as many parameters."
 
+        par=[]
         self.cov=np.zeros((num_par,num_par),np.float64)
         for i in range(num_par):
             calc_sparse_basis_i=interp1d(self.nu,self.basis[i],kind="cubic")
@@ -119,9 +122,9 @@ class gram_schmidt_fitting(object):
             par.append(np.dot(sparse_basis_i,Inu))
 
         # Computing the inverse of the covariance to return the coefficients of expansion.
-        gs_par=np.asarray(np.matmul(np.linalg.inv(np.matrix(self.cov)),np.transpose(np.matrix(par)))).flatten()
+        coeffs=np.asarray(np.matmul(np.linalg.inv(np.matrix(self.cov)),np.transpose(np.matrix(par)))).flatten()
         #gs_par=np.asarray(np.matmul(np.linalg.pinv(np.matrix(self.cov),rcond=rcond),np.transpose(np.matrix(par)))).flatten()
-        return gs_par
+        return coeffs
 
     def reconstruct_sed(self,nu,*coeffs):
         sed=0.
