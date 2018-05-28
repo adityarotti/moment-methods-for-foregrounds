@@ -1,5 +1,5 @@
 xcode
 data
 miscellaneous
-**/*.DS_Store
+**/.DS_Store
 **/*.pyc
