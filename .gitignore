@@ -1,3 +1,4 @@
 xcode
 data
 miscellaneous
+*.pyc
