@@ -2,3 +2,4 @@ xcode
 data
 miscellaneous
 **/*.pyc
+**/*.DS_Store
