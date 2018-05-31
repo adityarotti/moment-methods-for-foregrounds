@@ -13,14 +13,15 @@ class gram_schmidt_fitting(object):
         self.num_basis=0
 
     def gen_vectors(self,nu,T,slope):
-        nu0=cnst.boltzman_const*self.T/cnst.planck_const/cnst.ghz2hz # Pivot frequency in GHz
+        nu0=cnst.boltzman_const*T/cnst.planck_const/cnst.ghz2hz # Pivot frequency in GHz
         c0=cnst.planck_const*cnst.ghz2hz/cnst.boltzman_const # This defines h*nu/k in the exponential
-        self.vectors=list()
+        vectors=list()
         for i in range(len(self.ana_sed.fn_dir)):
             v=self.ana_sed.fn_dir[i](nu,1./T,slope,nu0,c0)
-            self.vectors.append(v/max(abs(v)))
+            vectors.append(v/max(abs(v)))
+        return vectors
 
-    def gram_schmidt(self,vectors,min_vec_norm=1e-8):
+    def gram_schmidt(self,vectors,min_vec_norm=1e-16):
         basis = [] # Directory of normalized basis functions
         un_basis = []  # Directory of un-normalized basis functions
         for v in vectors:
@@ -36,8 +37,8 @@ class gram_schmidt_fitting(object):
             # Note: If one has sampled at only N frequencies, one cannot have more than N basis.
         return np.array(un_basis),np.array(basis)
 
-    def gram_schmidt_iterative(self,tol=1e-8,max_iter=10):
-        vectors=self.vectors
+    def gram_schmidt_iterative(self,nu,T,slope,tol=1e-8,max_iter=10):
+        vectors=self.gen_vectors(nu,T,slope)
 
         normalize=True ; counter=0
         while normalize:
@@ -57,8 +58,6 @@ class gram_schmidt_fitting(object):
                     normalize=True
                     counter=counter+1   
         self.num_basis=np.shape(self.basis)[0]
-
-
 
 
     def get_basis_coeffs(self,Inu,n,n_is_der_order=True):

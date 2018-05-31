@@ -95,7 +95,7 @@ class gram_schmidt_fitting(object):
 
     def get_basis_coeffs(self,nu,Inu,n,n_is_der_order=True):
         
-        if n_is_der_order
+        if n_is_der_order:
             if n>self.n:
                 n=self.n
                 num_par=self.ana_sed.calc_num_vec(n)

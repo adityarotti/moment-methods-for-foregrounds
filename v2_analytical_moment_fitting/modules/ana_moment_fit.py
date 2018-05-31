@@ -42,7 +42,7 @@ class moment_fit(object):
     
 # Fitting carried out in the function defined below. Uses the scipy curve_fit routine.
     
-    def fit_monopole_sed(self,nu,Inu,der_order=0,guess=[],lb=[],ub=[],prange=1000.,maxfev=20000,bounds_true=False,flat_sensitivity=True):
+    def fit_monopole_sed(self,nu,Inu,der_order=0,guess=[],lb=[],ub=[],prange=1000.,maxfev=20000,bounds_true=False,flat_sensitivity=True,verbose=False):
 
         if der_order==1:
             der_order=0
@@ -50,27 +50,29 @@ class moment_fit(object):
             print "Effectively only fitting for a single modified black body"
             print "To perform moment fits please provide a der_order > 1"
         
-
         # Parameter guesses and bounds.
         if np.size(guess)==0:
             par_size=max(self.ana_sed.calc_num_vec(der_order),3)
             guess=np.append((1.,10.,0.),np.zeros(par_size-3)) # A,T,slope + moments
-            print "You provided no guesses"
-            print "Fitting for", par_size, " parameters"
+            if verbose:
+                print "You provided no guesses"
+                print "Fitting for", par_size, " parameters"
         elif np.size(guess)!=self.ana_sed.calc_num_vec(der_order):
             par_size=max(self.ana_sed.calc_num_vec(der_order),3)
             guess=np.append((1.,10.,0.),np.zeros(par_size-3))
-            print "For derivative order =",der_order,"the code requires that you pass a guess array of size ", self.ana_sed.calc_num_vec(der_order), "but you only provided a guess array of size ",np.size(guess)
-            print "Resetting the guesses to the default guess values ", guess
+            if verbose:
+                print "For derivative order =",der_order,"the code requires that you pass a guess array of size ", self.ana_sed.calc_num_vec(der_order), "but you only provided a guess array of size ",np.size(guess)
+                print "Resetting the guesses to the default guess values ", guess
         else:
             par_size=np.size(guess)
 
         # Need to incorporate user provided bounds.
         if bounds_true:
             if np.size(lb)==0 or np.size(ub)==0 or np.size(lb)!=np.size(ub):
-                print "Bounds not provided or they lower and upper bound arrays are of unequal size"
-                print "Setting the default bounds"
-                lb=np.append([1e-6,0.1,-10],np.ones(par_size-3)*(-prange)) # T & A cannot be negative.
+                if verbose:
+                    print "Bounds not provided or they lower and upper bound arrays are of unequal size"
+                    print "Setting the default bounds"
+                lb=np.append([1e-12,0.1,-10],np.ones(par_size-3)*(-prange)) # T & A cannot be negative.
                 ub=np.append([10,50.,10],np.ones(par_size-3)*(prange))
 
         # Assumption on sensitivity.
