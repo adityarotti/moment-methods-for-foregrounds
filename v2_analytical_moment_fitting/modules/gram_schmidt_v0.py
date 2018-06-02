@@ -37,7 +37,7 @@ class gram_schmidt_fitting(object):
             # Note: If one has sampled at only N frequencies, one cannot have more than N basis.
         return np.array(un_basis),np.array(basis)
 
-    def gram_schmidt_iterative(self,nu,T,slope,tol=1e-8,max_iter=10):
+    def gram_schmidt_iterative(self,nu,T,slope,tol=1e-12,max_iter=1000):
         vectors=self.gen_vectors(nu,T,slope)
 
         normalize=True ; counter=0
