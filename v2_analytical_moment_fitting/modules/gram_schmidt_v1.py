@@ -23,7 +23,7 @@ class gram_schmidt_fitting(object):
         self.num_basis=0
 
     def gen_vectors(self,T,slope,nu_min,nu_max,sampling=1e5,nu=[],logspace=True):
-        nu0=cnst.boltzman_const*self.T/cnst.planck_const/cnst.ghz2hz # Pivot frequency in GHz
+        nu0=cnst.boltzman_const*T/cnst.planck_const/cnst.ghz2hz # Pivot frequency in GHz
         c0=cnst.planck_const*cnst.ghz2hz/cnst.boltzman_const # This defines h*nu/k in the exponential
 
         if np.size(nu)==0:
