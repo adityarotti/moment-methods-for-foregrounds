@@ -1,0 +1,15 @@
+
+\providecommand{\href}[2]{#2}\begingroup\raggedright\begin{thebibliography}{1}
+
+\bibitem{Chluba2017}
+J.~Chluba, J.~C. Hill and M.~H. Abitbol, \emph{{Rethinking CMB foregrounds:
+  systematic extension of foreground parameterizations}}, {\emph{Mon. Not. R.
+  Astron. Soc} {\bfseries 000} (2017) 0--0}.
+
+\bibitem{BICEP2014}
+P.~A.~R. Ade, R.~W. Aikin, D.~Barkats, S.~J. Benton, C.~A. Bischoff, J.~J. Bock
+  et~al., \emph{{Detection of B-Mode Polarization at Degree Angular Scales by
+  BICEP2}}, \href{https://doi.org/10.1103/PhysRevLett.112.241101}{\emph{Phys.
+  Rev. Lett.} {\bfseries 112} (jun, 2014) 241101}.
+
+\end{thebibliography}\endgroup

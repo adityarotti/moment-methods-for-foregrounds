@@ -1,0 +1,67 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{jcappub}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath, amsfonts, amssymb, hyperref, graphicx, multirow, subfigure, bbold}
+\hypersetup{colorlinks=True,citecolor=blue}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[normalem]{ulem}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{aas_macros}
+
+\renewcommand{\thesubfigure}{(\roman{subfigure})}
+%\renewcommand{\thesubfigure}{}
+   
+\newcommand{\na}{New Astronomy}
+%\newcommand{\aap}{Astronomy and Astrophysics}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqry}{\begin{eqnarray}}
+\newcommand{\eeqry}{\end{eqnarray}}
+
+\def\eq#1{{Eq.~(\ref{#1})}}
+\def\sec#1{{Sec.~\ref{#1}}}
+\def\fig#1{{Fig.~\ref{#1}}}
+\def\app#1{{Appendix~\ref{#1}}}
+
+% Text comments and highlights
+\newcommand{\st}{\sout}
+\newcommand{\bnu}{B_{\nu}}
+\newcommand{\rd}{\mathrm{d}}
+\newcommand{\bv}{\Big\vert}
+\newcommand{\revisit}{\textcolor{red}}
+\newcommand{\comment}{ $\Rightarrow$ \textcolor{green}  }
+\newcommand{\rfedit}{\textcolor{magenta}  }
+\newcommand{\soothe}{\textcolor{BlueViolet}  }
+
+\graphicspath{ {"./figures/"//} }
+
+\begin{document}
+\title{High Precision Foreground Modeling Using Current And Future Multi-frequency Microwave Maps}
+
+
+\author[]{Rotti et. al., }
+%\author[]{Jens Chluba and}
+%\author[]{Mathiue Remazeilles}
+\affiliation[]{Jodrell Bank Center for Astrophysics, University of Manchester, Manchester, U.K}
+\emailAdd{adityarotti@gmail.com}%, jens.chluba@manchester.ac.uk, mathieu.remazeilles@manchester.ac.uk}
+
+\abstract{In hidhsight we have had the privilege of working with cosmological signals which dominated in some microwave channels. 90-100GHz for CMB temperature anisotropy maps. \revisit{Is this true also for E-mode measurements and B-mode lensing measurements?}. We are entering a new era in which the signals we are seeking namely B-mode and spectral distortions are tiny and overwhelmed with foreground contaminations. There are unlikely to be any microwave channels in which these signals dominate. We have to invariably drill through the galactic and extragalactic foregrounds contaminations to uncover these tiny signals. In this work we present a first principle motivated method for foreground modelling which we argue in principle allows for arbirtrarily precise modelling of foregrounds. We demonstate the applicability of this method on simulated maps. Finally we carry out a first analysis on Planck HFI channels to search for signal of these extended parametrizations. This is a first in a series of paper in which we explore the feasibility and the usefullness of this new method for current and future microwave map analysis.} 
+
+\maketitle
+\begingroup
+\let\clearpage\relax
+\include{./sections/introduction}
+\include{./sections/formalism}
+\include{./sections/application_to_simulations}
+\include{./sections/application_to_planck}
+\include{./sections/conclusions}
+\include{./sections/acknowledgments}
+\include{./sections/appendix}
+\endgroup
+
+\bibliographystyle{JHEP}
+\bibliography{ref}
+\end{document}
+

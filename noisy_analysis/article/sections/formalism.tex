@@ -1,0 +1,60 @@
+\section{Formalism}
+
+Here we review the moment method which was first presented in \cite{Chluba2017}. The photons received from any direction get contributions from multiple sources along the line of sight. For the sake of clarity we present this first principle method by discussing the example case of the spectral energy distribution (SED) being characterized by the modified black body function. The generalization to the SED being described an arbitrary function is straight forward.  Therefore each source emits photons with a SED characterized by the following function,
+%
+\begin{equation}
+\bnu(\nu,\beta,T)= \left(\frac{\nu}{\nu_0}\right)^{\beta}  \frac{h \nu^3}{c^2} \frac{1}{e^{h \nu/kT} -1} \,.
+\end{equation}
+%
+The photons received by the observer are likely to emanate from multiple sources whose emission is characterized by a different set of parameters $A, \beta~ \& ~ T$ \footnote{Note that geometrical factors like the distance from the observer can be captured by these parameters. For local sources the amplitude captures the inverse proportionality to distance squared and  for sources at cosmological distances, the temperature gets shifted by factors of (1+z) in addition to the geometrical dilution.}. Here note that while the parameter $\beta ~\&~ T$ change the spectral shape of the SED the parameter $A$ merely rescales the total number of photons. The radiation received by the observer is a superposition of all these individual emissions and in the general case is no longer characterized by the modified black body function,
+%
+\begin{subequations}
+\begin{eqnarray}
+I_{\nu}(\hat{n})&=&\int \frac{\rd I}{\rd s} \rd s \,, \\ 
+&=& \int \bnu(\nu,\beta,T) P_{\hat{n}}(\beta, T) \rd \beta \rd T \,,\label{eq:los_prob_intg}
+\end{eqnarray}
+\end{subequations}
+%
+where $P_{\hat{n}}(\beta, T)$ is some joint probability distribution of the parameters characterizing the statistical properties of the sources along a given line of sight $\hat{n}$. Only in the case where the probability distribution is a delta function peaked at some parameter values $P(\beta,T)= \delta(\beta- \beta_0)\delta(T-T_0)$ is $I_{\nu} \propto B_{\nu}$. The simple parametrizations used by most parametric methods can now be understood as working in this approximation. This simplifying approximation has been remarkably successful in modeling foregrounds, but its important to bear in mind that this success has only been in cases when there are some channels which are dominated by the signal being seeked.  This leads to the suspicion that these simplified methods may fail or not be as robust when working in a fully foreground dominated regime. We may have already seen an example of this drawback of the simplified methods in the case of the faulty primordial B-mode detections claimed by BICEP \cite{BICEP2014}.
+
+We have no prior knowledge of the probability function. We also need to bear in mind that this probability function depends on the instrument resolution since the angular resolution changes the 3 dimensional volume being probed. Lets start with the assumption that we know the means of the parameters,
+%
+\beq
+\bar{\beta} = \int \beta P(\beta, T)  \rd \beta \rd T ~~~;~~~ \bar{T}=\int T P(\beta, T) \rd \beta \rd T \,,
+\eeq
+%
+then we can expand the SED in \eq{eq:los_prob_intg} in a Taylor series about these mean parameter values resulting in the following expression,
+%
+\beqry
+I_{\nu}(\hat{n})&=&\int \rd \beta \rd T ~ P_{\hat{n}}(\beta, T) \Big \lbrace \bnu\bv_{\bar{\beta},\bar{T}} + \partial_{\beta}B_{\nu}\bv_{\bar{\beta},\bar{T}} (\beta-\bar{\beta}) +  \partial_{T}B_{\nu}\bv_{\bar{\beta},\bar{T}}(T-\bar{T})  \\ &+&  \partial^2_{\beta}B_{\nu}\bv_{\bar{\beta},\bar{T}}(\beta-\bar{\beta})^2 +  \partial^2_{\beta T} B_{\nu}\bv_{\bar{\beta},\bar{T}} (\beta-\bar{\beta})(T-\bar{T}) + \partial^2_{T}B_{\nu}\bv_{\bar{\beta},\bar{T}} (T-\bar{T})^2 +  \cdots \Big \rbrace \nonumber \,,
+\eeqry
+%
+where the derivatives of the SED are evaluated at the mean parameter values. The probability distribution function ($P(\beta,T)$) of the parameters is unknown. Note that the derivatives of the SED are evaluated at fixed parameter values and hence are constants and therefore the integral for each of the terms in the equation above can understood as the moments of the PDF. 
+
+The probability function in general may not be normalized and the first term can be understood as some constant necessary to normalize the PDF.  Therefore the measured SED along any line of sight can be modelled with arbitrary accuracy by including high order moments of the distribution in the following sum,
+%
+\begin{subequations}
+\beqry
+I_{\nu}(\hat{n})&=&\mathcal{M}_{00}(\hat{n}) B_{\nu} + \mathcal{M}_{\beta 0}(\hat{n})  \partial_{\beta}\bnu + \mathcal{M}_{0T}(\hat{n})\partial_{T}\bnu \nonumber \\ &+& \mathcal{M}_{\beta^2 0}(\hat{n})  \partial^2_{\beta}\bnu + \mathcal{M}_{\beta T}(\hat{n})  \partial_{\beta} \partial_{T}\bnu + \mathcal{M}_{0T^2}(\hat{n})  \partial^2_{T}\bnu + \cdots \\
+&=&\sum_{i,j=0}^{\mathcal{N}} \mathcal{M}_{\beta^i T^j}(\hat{n})  \partial^i_{\beta} \partial^j_{T}\bnu \bv_{\bar{\beta},\bar{T}}
+\eeqry
+\end{subequations}
+%
+By formulating the SED in this manner we have managed to convert an integral into a discrete sum. Here we would like to remark that since we choose to Taylor expanded about the mean values of the parameters the first order moments vanish i.e. $\mathcal{M}_{\beta 0}(\hat{n})=0$ \& $\mathcal{M}_{0 T}(\hat{n})=0$. Consequenty the number of vectors necessary to describe the SED to a particular accuracy is reduced by 2. This immediately has implications on the number of channels one requires to model the forergounds to a certain desired accuracy. 
+
+We will see that the number of terms $\mathcal{N}$ contribution to the sum cannot exceed the number of channels at which one has measured the SED. This will enable us to understand a basic limitation on the accuracy with which one can model the foregrounds given certain fixed number of frequency channels. This statements depends on the nature of the PDF, for instance for a delta function PDF one only needs two channels to describe the PDF determined by the two free parameters. On the other hand for a Gaussian PDF one might need at most 5 channels to describe the PDF as the higher order moments can be described in terms of the second moments of the PDF, assuming of course that we are able to reliably infer the means of the PDF. 
+
+However it is important to appreciate that we do not know the means of the PDF and these need to be inferred simultaenuously by fitting for the moments along with the base parameters ($\beta$, $T$) characterizing the SED for a single source. 
+
+The main point of the discussion above is that choosing a good pivot point ($\beta_0$, $T_0$) around which to Taylor expand the SED has important consequences to how well the foregrounds can be modelled given a fixed number of frequency channels at which the SED has been measured. Also the complexity of the foreground model depends on the PDF of the base parameters.  
+
+\section{Analysis strategies}
+
+\subsection{Global optimization}
+This is the method primarily discussed in the original paper.
+\subsection{Maximum likelihood solution}
+This returns the moments given a set of pivot base parameters.
+\subsection{Gram-Schmidt orthogonalization}
+This returns the coefficients of the Gram-Schmidt orthogonalized vectors.
+\subsubsection{Getting Moments from the Gram-Schmidt coefficients}
+The equation for getting the moments from Gram-Schmidt vectors coefficients
